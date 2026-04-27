@@ -473,6 +473,32 @@ body {
   color: #aaa;
 }
 
+.seo-copy {
+  margin-top: 36px;
+  padding: 24px 26px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+}
+
+.seo-title {
+  margin: 0 0 10px;
+  color: var(--cream);
+  font-family: 'Ubuntu', sans-serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 400;
+}
+
+.seo-text {
+  margin: 0 0 10px;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.seo-text:last-child {
+  margin-bottom: 0;
+}
+
 /* ---- FOOTER ---- */
 .site-footer {
   border-top: 1px solid var(--border);
