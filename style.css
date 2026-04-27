@@ -1,0 +1,579 @@
+/* ============================================================
+   TEXT TO PDF — style.css
+   Aesthetic: editorial / ink-press — dark navy + warm cream
+   ============================================================ */
+
+:root {
+  --navy:       #0f1b2d;
+  --navy-mid:   #162336;
+  --navy-light: #1e3050;
+  --cream:      #f5f0e8;
+  --cream-dim:  #ece5d6;
+  --gold:       #c9a84c;
+  --gold-light: #e0c070;
+  --teal:       #2ab5a0;
+  --teal-dark:  #1d9080;
+  --red-soft:   #c0443a;
+  --text-main:  #e8e0d0;
+  --text-muted: #8fa0b5;
+  --border:     rgba(201,168,76,0.18);
+  --radius:     10px;
+  --shadow:     0 8px 40px rgba(0,0,0,0.45);
+}
+
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--navy);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(42,181,160,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  color: var(--text-main);
+  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- HEADER ---- */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0 16px;
+  background: rgba(15,27,45,0.85);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.logo-text {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+}
+
+.header-tagline {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ---- MAIN ---- */
+.main-content {
+  flex: 1;
+  padding: 48px 0 60px;
+}
+
+/* ---- HERO ---- */
+.hero-section {
+  margin-bottom: 36px;
+}
+
+.hero-title {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.01em;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.hero-title strong { font-weight: 700; color: var(--gold); }
+
+.hero-sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.hero-sub strong {
+  color: var(--teal);
+  font-weight: 500;
+}
+
+/* ---- CARD ---- */
+.main-card {
+  background: var(--navy-mid);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.main-card .card-body {
+  padding: 36px 36px 32px;
+}
+
+/* ---- SECTION LABEL ---- */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.label-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* ---- EDITOR ---- */
+.textarea-wrap { position: relative; }
+
+.text-editor {
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--navy);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.text-editor:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(42,181,160,0.12);
+}
+
+.note-editor.note-frame,
+.note-editor.note-airframe {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.note-toolbar {
+  background: rgba(255,255,255,0.03) !important;
+  border-bottom: 1px solid rgba(201,168,76,0.15) !important;
+  padding: 12px 14px !important;
+}
+
+.note-editor .note-toolbar,
+.note-editor .note-statusbar {
+  border-color: rgba(201,168,76,0.15) !important;
+}
+
+.note-editing-area,
+.note-editable {
+  background: rgba(15,27,45,0.9) !important;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable {
+  color: var(--cream);
+  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  padding: 18px 20px;
+}
+
+.note-placeholder {
+  color: rgba(143,160,181,0.5) !important;
+}
+
+.note-btn,
+.note-btn-group .dropdown-toggle,
+.note-dropdown-menu,
+.note-modal-content {
+  background: var(--navy-mid) !important;
+  color: var(--cream) !important;
+  border-color: rgba(201,168,76,0.18) !important;
+}
+
+.note-btn:hover,
+.note-btn:focus,
+.note-btn.active {
+  background: rgba(201,168,76,0.12) !important;
+  color: var(--gold-light) !important;
+}
+
+.note-statusbar {
+  display: none !important;
+}
+
+.editor-hint {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 8px;
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* ---- SETTINGS PANEL ---- */
+.settings-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.settings-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255,255,255,0.03);
+  transition: background 0.2s, color 0.2s;
+}
+
+.settings-toggle:hover {
+  background: rgba(201,168,76,0.06);
+  color: var(--gold-light);
+}
+
+.toggle-arrow {
+  transition: transform 0.25s;
+  display: inline-block;
+}
+
+.toggle-arrow.open { transform: rotate(180deg); }
+
+.settings-body {
+  display: none;
+  padding: 4px 18px 18px;
+  border-top: 1px solid var(--border);
+}
+
+.settings-body.open { display: block; }
+
+.setting-lbl {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+}
+
+.setting-input {
+  background: var(--navy);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 6px;
+  color: var(--cream);
+  font-size: 0.9rem;
+  padding: 7px 10px;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.setting-input:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px rgba(42,181,160,0.1);
+}
+
+/* ---- ACTION ROW ---- */
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 11px 24px;
+  transition: all 0.2s;
+}
+
+.btn-icon { font-size: 1rem; line-height: 1; }
+
+/* Generate */
+.btn-generate {
+  background: linear-gradient(135deg, var(--gold) 0%, #a87830 100%);
+  color: var(--navy);
+  box-shadow: 0 4px 18px rgba(201,168,76,0.3);
+}
+.btn-generate:hover {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+  box-shadow: 0 6px 24px rgba(201,168,76,0.45);
+  transform: translateY(-1px);
+}
+.btn-generate:active { transform: translateY(0); }
+
+/* Download */
+.btn-download {
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(42,181,160,0.25);
+}
+.btn-download:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 24px rgba(42,181,160,0.4);
+  transform: translateY(-1px);
+}
+.btn-download:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Clear */
+.btn-clear {
+  background: transparent;
+  border: 1px solid rgba(192,68,58,0.4);
+  color: rgba(192,68,58,0.8);
+  padding: 10px 20px;
+}
+.btn-clear:hover {
+  background: rgba(192,68,58,0.08);
+  border-color: var(--red-soft);
+  color: #e06058;
+}
+
+/* ---- STATUS ---- */
+.status-msg {
+  margin-top: 18px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  padding: 12px 18px;
+}
+.status-msg.success {
+  background: rgba(42,181,160,0.1);
+  border: 1px solid rgba(42,181,160,0.3);
+  color: var(--teal);
+}
+.status-msg.error {
+  background: rgba(192,68,58,0.1);
+  border: 1px solid rgba(192,68,58,0.3);
+  color: #e06058;
+}
+.status-msg.info {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.22);
+  color: var(--gold-light);
+}
+
+/* ---- PREVIEW ---- */
+.preview-panel {
+  margin-top: 32px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.35s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 11px 20px;
+}
+
+.preview-badge {
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 20px;
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  padding: 2px 10px;
+}
+
+.preview-content {
+  background: var(--navy);
+  padding: 28px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+/* A4 page simulation */
+.preview-page {
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+  color: #111;
+  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  font-size: 11px;
+  line-height: 1.75;
+  overflow: hidden;
+  /* A4 ratio at preview scale */
+  width: 240px;
+  min-height: 339px;
+  padding: 0;
+  position: relative;
+  word-break: break-word;
+  white-space: pre-wrap;
+  flex-shrink: 0;
+}
+
+.preview-page-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.preview-page-num {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 8px;
+  color: #aaa;
+}
+
+/* ---- FOOTER ---- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.export-root {
+  position: fixed;
+  left: -100000px;
+  top: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.export-sheet {
+  background: #fff;
+  color: #111;
+  padding: 28px 34px 22px;
+  font-family: 'Ubuntu', 'Battambang', sans-serif;
+}
+
+.export-sheet-content {
+  min-height: 0;
+  padding: 0;
+  background: #fff;
+  color: #111;
+  font-family: 'Ubuntu', 'Battambang', sans-serif;
+}
+
+.export-sheet-content.summernote-content p,
+.export-sheet-content.summernote-content ol,
+.export-sheet-content.summernote-content ul,
+.export-sheet-content.summernote-content pre,
+.export-sheet-content.summernote-content blockquote,
+.export-sheet-content.summernote-content h1,
+.export-sheet-content.summernote-content h2,
+.export-sheet-content.summernote-content h3,
+.export-sheet-content.summernote-content h4,
+.export-sheet-content.summernote-content h5,
+.export-sheet-content.summernote-content h6,
+.export-sheet-content.summernote-content li,
+.export-sheet-content.summernote-content span {
+  color: #111;
+}
+
+.export-sheet-content.summernote-content {
+  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  color: #111 !important;
+}
+
+.export-sheet-content.summernote-content *,
+.export-sheet-content.summernote-content a,
+.export-sheet-content.summernote-content strong,
+.export-sheet-content.summernote-content b,
+.export-sheet-content.summernote-content em,
+.export-sheet-content.summernote-content u {
+  color: #111 !important;
+}
+
+.export-sheet-content.summernote-content .khmer-min-font {
+  font-family: 'Battambang', 'Ubuntu', sans-serif;
+  line-height: inherit;
+}
+
+.export-sheet-content.summernote-content blockquote {
+  border-left: 4px solid #d3d8e2;
+  margin-left: 0;
+  padding-left: 16px;
+  color: #384556;
+}
+
+.export-sheet-content.summernote-content ul,
+.export-sheet-content.summernote-content ol {
+  padding-left: 1.5rem;
+}
+
+.export-sheet-content.summernote-content h1,
+.export-sheet-content.summernote-content h2 {
+  font-family: 'Ubuntu', 'Battambang', sans-serif;
+}
+
+/* ---- SPINNER ---- */
+.spinner-ring {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 576px) {
+  .main-card .card-body { padding: 22px 16px 20px; }
+  .action-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .preview-page { width: 180px; min-height: 254px; font-size: 9px; }
+}
