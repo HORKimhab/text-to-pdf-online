@@ -3,17 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Text to PDF Online - Free Text to PDF Converter for Khmer & English</title>
-  <meta name="description" content="Text to PDF Online is a free browser-based text to PDF converter. Paste or write Khmer and English text, format it, preview it, and download PDF files instantly." />
-  <meta name="keywords" content="text to pdf, text to pdf online, free text to pdf, convert text to pdf, khmer text to pdf, english text to pdf, online pdf generator" />
+  <title>Text to PDF Online Free Converter | Convert Text to PDF in Browser</title>
+  <meta name="description" content="Convert text to PDF online for free in your browser. Paste or type text, format it, preview the pages, and download a PDF instantly. Works with Khmer and English." />
+  <meta name="keywords" content="text to pdf, text to pdf online, convert text to pdf, free text to pdf converter, online text to pdf, browser text to pdf, khmer text to pdf, english text to pdf" />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Text to PDF Online - Free Text to PDF Converter" />
-  <meta property="og:description" content="Convert text to PDF online for free. Supports Khmer and English text with formatting, preview, and instant download." />
+  <meta name="application-name" content="Text to PDF Online" />
+  <meta name="theme-color" content="#f6f1e7" />
+  <link rel="canonical" href="/" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta property="og:title" content="Text to PDF Online Free Converter" />
+  <meta property="og:description" content="Free online text to PDF converter with formatting, preview, page settings, and instant download in your browser." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="" />
+  <meta property="og:url" content="/" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Text to PDF Online - Free Text to PDF Converter" />
-  <meta name="twitter:description" content="Free online text to PDF converter for Khmer and English." />
+  <meta name="twitter:title" content="Text to PDF Online Free Converter" />
+  <meta name="twitter:description" content="Convert text to PDF online for free. Supports Khmer and English with page settings and preview." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,22 +34,74 @@
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Text to PDF Online",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Web",
+          "description": "Free online text to PDF converter for Khmer and English text with formatting, preview, and instant download.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Convert text to PDF online",
+            "Browser-based PDF generation",
+            "Khmer and English text support",
+            "Live formatting and preview",
+            "Custom page margins and font size"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How can I convert text to PDF online for free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Paste or type your text into the editor, adjust formatting and page settings, generate the PDF, then download it directly from your browser."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does this text to PDF converter support Khmer and English?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. The editor and PDF output support Khmer and English text, including browser-loaded Google Fonts and page preview."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is my text uploaded to a server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The conversion works entirely in your browser, so your text stays on your device during editing and PDF generation."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
       "name": "Text to PDF Online",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "description": "Free online text to PDF converter for Khmer and English text with formatting and preview.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+      "url": "/"
     }
   </script>
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <noscript>
+    <div class="noscript-banner">Text to PDF Online needs JavaScript to generate PDFs in your browser.</div>
+  </noscript>
 
   <!-- Header -->
   <header class="site-header">
@@ -67,14 +123,15 @@
       <!-- Hero -->
       <div class="hero-section text-center">
         <div class="hero-title-row">
-          <h1 class="hero-title">Text to PDF Online</h1>
+          <h1 class="hero-title">Text to PDF Online Free Converter</h1>
           <img
             src="public/image/hkimhab-merchant-aba.png"
-            alt="HKIMHAB Merchant ABA QR"
+            alt="Text to PDF Online support QR"
             class="hero-title-image"
           >
         </div>
-        <p class="hero-sub">Free <strong>text to PDF</strong> converter for <strong>Khmer</strong> and <strong>English</strong> with formatting, preview, and instant download.</p>
+        <p class="hero-sub">Convert <strong>text to PDF online</strong> for free with a browser-based editor, page preview, and instant download.</p>
+        <p class="hero-sub">Built for <strong>Khmer</strong> and <strong>English</strong> text, notes, lessons, letters, and simple document export.</p>
         <p class="hero-sub"><a href="https://www.paypal.com/donate/?hosted_button_id=P3Y3A8QAM3LDE" target="_blank" rel="noopener noreferrer">Donate with paypal</a></p>
         <div class="hero-font-input">
           <label class="form-label setting-lbl hero-font-label" for="googleFontInput">Google Font URL</label>
@@ -170,9 +227,52 @@
       </div>
 
       <section class="seo-copy">
-        <h2 class="seo-title">Free Text to PDF Converter Online</h2>
-        <p class="seo-text">Use this text to PDF online tool to write, paste, format, preview, and export text directly in your browser. It works well for Khmer and English content and helps you convert notes, lessons, documents, and plain text into downloadable PDF files.</p>
-        <p class="seo-text">If users search for <strong>text to pdf</strong>, <strong>text to pdf online</strong>, or <strong>convert text to pdf free</strong>, this page clearly explains the tool and matches the feature set.</p>
+        <h2 class="seo-title">Convert Text to PDF Online in a Few Steps</h2>
+        <p class="seo-text">This free text to PDF converter helps users turn plain text into a clean PDF without installing software. Type or paste content, apply formatting, preview the pages, and download the final PDF from the same page.</p>
+        <p class="seo-text">The tool is designed for people searching terms like <strong>text to pdf online</strong>, <strong>convert text to pdf</strong>, <strong>free text to pdf converter</strong>, and <strong>browser text to pdf</strong>. It also supports Khmer and English text for letters, worksheets, notes, and lightweight document creation.</p>
+      </section>
+
+      <section class="info-grid" aria-label="Text to PDF benefits">
+        <article class="info-card">
+          <h2 class="info-title">Why Use This Text to PDF Tool</h2>
+          <p class="info-text">Everything runs in the browser, so the workflow is fast and simple. There is no account, no upload step, and no extra app to install.</p>
+          <ul class="info-list">
+            <li>Free online text to PDF conversion</li>
+            <li>Formatting support before export</li>
+            <li>Live PDF preview with page count</li>
+            <li>Custom margins, font size, and line height</li>
+            <li>Khmer and English support</li>
+          </ul>
+        </article>
+        <article class="info-card">
+          <h2 class="info-title">How to Convert Text to PDF</h2>
+          <ol class="info-list">
+            <li>Paste or type your text into the editor.</li>
+            <li>Adjust formatting, margins, font size, and line height.</li>
+            <li>Click Generate PDF to create the document.</li>
+            <li>Check the preview and download the PDF file.</li>
+          </ol>
+        </article>
+      </section>
+
+      <section class="faq-section" aria-labelledby="faq-title">
+        <h2 class="seo-title" id="faq-title">Text to PDF Online FAQ</h2>
+        <div class="faq-item">
+          <h3 class="faq-question">Can I convert text to PDF online for free?</h3>
+          <p class="faq-answer">Yes. This is a free browser-based text to PDF converter. You can paste text, format it, generate the PDF, and download it without paying.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">Does it work for Khmer and English text?</h3>
+          <p class="faq-answer">Yes. The editor is built to handle Khmer and English text, and you can also load supported Google Fonts for better output styling.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">Is my text uploaded anywhere?</h3>
+          <p class="faq-answer">No. PDF generation happens in your browser, which means your text stays on your device during the conversion process.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">What kind of text can I turn into a PDF?</h3>
+          <p class="faq-answer">You can export notes, school content, plain text documents, announcements, letters, outlines, and other lightweight text-based content into PDF format.</p>
+        </div>
       </section>
 
     </div>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Text to PDF Online favicon</title>
+  <desc id="desc">A gold hexagon with document lines and a teal PDF badge.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffdfa" />
+      <stop offset="100%" stop-color="#f6f1e7" />
+    </linearGradient>
+    <linearGradient id="hex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0c070" />
+      <stop offset="100%" stop-color="#c9a84c" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)" />
+  <path
+    d="M32 7 49.32 17v20L32 47 14.68 37V17Z"
+    fill="url(#hex)"
+    stroke="#182434"
+    stroke-opacity=".12"
+    stroke-width="1.5"
+  />
+  <path
+    d="M24 18.5h12l5 5V39a2 2 0 0 1-2 2H24a2 2 0 0 1-2-2v-18a2 2 0 0 1 2-2Z"
+    fill="#fffdfa"
+  />
+  <path d="M36 18.5v5h5" fill="none" stroke="#c9a84c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+  <path d="M27 27h10M27 31h10M27 35h7" fill="none" stroke="#667789" stroke-linecap="round" stroke-width="2" />
+  <rect x="31.5" y="34.5" width="13" height="10" rx="3" fill="#2ab5a0" />
+  <text
+    x="38"
+    y="41.5"
+    fill="#fff"
+    font-family="Ubuntu, Arial, sans-serif"
+    font-size="5.8"
+    font-weight="700"
+    text-anchor="middle"
+  >PDF</text>
+</svg>
