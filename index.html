@@ -136,12 +136,15 @@
         <div class="hero-font-input">
           <label class="form-label setting-lbl hero-font-label" for="googleFontInput">Google Font URL</label>
           <input
-            type="text"
+            type="url"
             id="googleFontInput"
             class="form-control setting-input"
+            inputmode="url"
+            pattern="https://fonts\.googleapis\.com/.*"
+            title="Use a Google Fonts URL from fonts.googleapis.com"
             placeholder="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap"
           >
-          <p class="setting-help mb-0">Paste a Google Fonts URL here. Non-Khmer text uses the non-Khmer family, while Khmer text keeps a Khmer-capable fallback. <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google fonts</a></p>
+          <p class="setting-help mb-0">Paste a valid Google Fonts URL from <code>fonts.googleapis.com</code>. Non-Khmer text uses the selected family, while Khmer text keeps a Khmer-capable fallback. <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google fonts</a></p>
         </div>
       </div>
 

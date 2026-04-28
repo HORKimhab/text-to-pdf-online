@@ -343,6 +343,11 @@ body {
   box-shadow: 0 0 0 2px rgba(42,181,160,0.1);
 }
 
+.setting-input:invalid:not(:placeholder-shown) {
+  border-color: rgba(192,68,58,0.7);
+  box-shadow: 0 0 0 2px rgba(192,68,58,0.08);
+}
+
 .setting-help {
   color: var(--text-muted);
   font-size: 0.72rem;

@@ -87,6 +87,10 @@ googleFontInput.addEventListener('change', () => {
   });
 });
 
+googleFontInput.addEventListener('input', () => {
+  googleFontInput.setCustomValidity('');
+});
+
 generateBtn.addEventListener('click', async () => {
   const text = getEditorText().trim();
   if (!text) {
@@ -422,9 +426,12 @@ async function applySelectedGoogleFont() {
 
   const config = parseGoogleFontInput(rawValue);
   if (!config) {
-    throw new Error('Use a Google Fonts family name or a fonts.googleapis.com URL.');
+    googleFontInput.setCustomValidity('Use a valid Google Fonts URL from fonts.googleapis.com.');
+    googleFontInput.reportValidity();
+    throw new Error('Use a valid Google Fonts URL from fonts.googleapis.com.');
   }
 
+  googleFontInput.setCustomValidity('');
   await loadUserGoogleFont(config);
   activeGoogleFont = config;
   applyFontStack();
@@ -432,27 +439,19 @@ async function applySelectedGoogleFont() {
 }
 
 function parseGoogleFontInput(value) {
-  if (/^https?:\/\//i.test(value)) {
-    try {
-      const url = new URL(value);
-      if (url.hostname !== GOOGLE_FONT_HOST) return null;
-      const families = url.searchParams.getAll('family').map(decodeGoogleFontFamily).filter(Boolean);
+  try {
+    const url = new URL(value);
+    if (!['http:', 'https:'].includes(url.protocol)) return null;
+    if (url.hostname !== GOOGLE_FONT_HOST) return null;
+    if (!url.pathname.startsWith('/css')) return null;
 
-      if (!families.length) return null;
-      return buildGoogleFontConfig(families, url.toString());
-    } catch (err) {
-      return null;
-    }
+    const families = url.searchParams.getAll('family').map(decodeGoogleFontFamily).filter(Boolean);
+    if (!families.length) return null;
+
+    return buildGoogleFontConfig(families, url.toString());
+  } catch (err) {
+    return null;
   }
-
-  const family = value.replace(/\s+/g, ' ').trim();
-  if (!family) return null;
-
-  const encodedFamily = encodeURIComponent(family).replace(/%20/g, '+');
-  return buildGoogleFontConfig(
-    [family],
-    `https://${GOOGLE_FONT_HOST}/css2?family=${encodedFamily}:wght@400;700&display=swap`
-  );
 }
 
 function decodeGoogleFontFamily(familyParam) {
