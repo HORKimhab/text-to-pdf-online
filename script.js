@@ -17,6 +17,27 @@ const MIN_KHMER_FONT_PX = 20;
 let pdfDataUri = null;
 let previewImages = [];
 const footerLabel = getFooterLabel();
+const DEFAULT_FONT_STACK = "'Ubuntu', 'Battambang', sans-serif";
+const DEFAULT_KHMER_FONT_STACK = "'Battambang', 'Ubuntu', sans-serif";
+const GOOGLE_FONT_STYLESHEET_ID = 'google-font-user-stylesheet';
+const GOOGLE_FONT_HOST = 'fonts.googleapis.com';
+const KNOWN_KHMER_FONT_FAMILIES = new Set([
+  'battambang',
+  'content',
+  'dangrek',
+  'fasthand',
+  'freehand',
+  'hanuman',
+  'kantumruy',
+  'khmer',
+  'koulen',
+  'moul',
+  'odormeanchey',
+  'siemreap',
+  'suwannaphum',
+  'taprom'
+]);
+let activeGoogleFont = null;
 
 const editorRoot = document.getElementById('editor');
 const generateBtn = document.getElementById('generateBtn');
@@ -38,10 +59,12 @@ const marginLeft = document.getElementById('marginLeft');
 const marginRight = document.getElementById('marginRight');
 const fontSizeInput = document.getElementById('fontSize');
 const lineHeightInput = document.getElementById('lineHeight');
+const googleFontInput = document.getElementById('googleFontInput');
 
 generateBtn.disabled = true;
 clearBtn.disabled = true;
 initEditor();
+applyFontStack();
 updateCharCount();
 
 settingsToggle.addEventListener('click', () => {
@@ -55,6 +78,13 @@ clearBtn.addEventListener('click', () => {
   updateCharCount();
   resetOutput();
   $(editorRoot).summernote('focus');
+});
+
+googleFontInput.addEventListener('change', () => {
+  applySelectedGoogleFont().catch((err) => {
+    console.error(err);
+    showStatus('Error applying Google Font: ' + err.message, 'error');
+  });
 });
 
 generateBtn.addEventListener('click', async () => {
@@ -122,7 +152,8 @@ async function buildPDF() {
   const renderSheet = createRenderSheet({
     widthPx: EXPORT_RENDER_WIDTH,
     fontSize,
-    lineHeight
+    lineHeight,
+    fontFamily: getSelectedFontStack()
   });
 
   exportRoot.appendChild(renderSheet.wrapper);
@@ -183,16 +214,18 @@ async function buildPDF() {
   return doc.output('datauristring');
 }
 
-function createRenderSheet({ widthPx, fontSize, lineHeight }) {
+function createRenderSheet({ widthPx, fontSize, lineHeight, fontFamily }) {
   const wrapper = document.createElement('div');
   wrapper.className = 'export-sheet';
   wrapper.style.width = `${widthPx}px`;
   const selectedFontPx = fontSize * 1.3333;
   wrapper.style.fontSize = `${Math.max(selectedFontPx, MIN_ENGLISH_FONT_PX)}px`;
   wrapper.style.lineHeight = String(lineHeight);
+  wrapper.style.fontFamily = fontFamily;
 
   const content = document.createElement('div');
   content.className = 'export-sheet-content summernote-content';
+  content.style.fontFamily = fontFamily;
   content.innerHTML = $(editorRoot).summernote('code');
   enforceMinimumKhmerFont(content, selectedFontPx);
 
@@ -326,6 +359,7 @@ function initEditor() {
       onInit() {
         generateBtn.disabled = false;
         clearBtn.disabled = false;
+        syncEditorFont();
         updateCharCount();
       },
       onChange() {
@@ -373,6 +407,165 @@ function waitForFonts() {
     return document.fonts.ready;
   }
   return Promise.resolve();
+}
+
+async function applySelectedGoogleFont() {
+  const rawValue = googleFontInput.value.trim();
+
+  if (!rawValue) {
+    activeGoogleFont = null;
+    removeUserGoogleFontStylesheet();
+    applyFontStack();
+    hideStatus();
+    return;
+  }
+
+  const config = parseGoogleFontInput(rawValue);
+  if (!config) {
+    throw new Error('Use a Google Fonts family name or a fonts.googleapis.com URL.');
+  }
+
+  await loadUserGoogleFont(config);
+  activeGoogleFont = config;
+  applyFontStack();
+  showStatus(`Google Font applied: ${escapeHtml(config.label)}`, 'success');
+}
+
+function parseGoogleFontInput(value) {
+  if (/^https?:\/\//i.test(value)) {
+    try {
+      const url = new URL(value);
+      if (url.hostname !== GOOGLE_FONT_HOST) return null;
+      const families = url.searchParams.getAll('family').map(decodeGoogleFontFamily).filter(Boolean);
+
+      if (!families.length) return null;
+      return buildGoogleFontConfig(families, url.toString());
+    } catch (err) {
+      return null;
+    }
+  }
+
+  const family = value.replace(/\s+/g, ' ').trim();
+  if (!family) return null;
+
+  const encodedFamily = encodeURIComponent(family).replace(/%20/g, '+');
+  return buildGoogleFontConfig(
+    [family],
+    `https://${GOOGLE_FONT_HOST}/css2?family=${encodedFamily}:wght@400;700&display=swap`
+  );
+}
+
+function decodeGoogleFontFamily(familyParam) {
+  return familyParam
+    .split(':')[0]
+    .replace(/\+/g, ' ')
+    .trim();
+}
+
+function buildGoogleFontConfig(families, href) {
+  const uniqueFamilies = families.filter((family, index) => families.indexOf(family) === index);
+  const khmerFamilies = uniqueFamilies.filter(isLikelyKhmerFontFamily);
+  const latinFamilies = uniqueFamilies.filter((family) => !isLikelyKhmerFontFamily(family));
+  const primaryFamily = latinFamilies[0] || null;
+  const khmerFamily = khmerFamilies[0] || 'Battambang';
+
+  return {
+    href,
+    families: uniqueFamilies,
+    primaryFamily,
+    khmerFamily,
+    label: uniqueFamilies.join(', ')
+  };
+}
+
+function isLikelyKhmerFontFamily(family) {
+  const normalized = family.toLowerCase();
+  return [...KNOWN_KHMER_FONT_FAMILIES].some((name) => normalized.includes(name));
+}
+
+async function loadUserGoogleFont({ families, href }) {
+  const link = ensureUserGoogleFontStylesheet();
+  await waitForStylesheetLoad(link, href);
+
+  if (document.fonts && document.fonts.load) {
+    const loads = families.flatMap((family) => [
+      document.fonts.load(`16px "${family}"`),
+      document.fonts.load(`700 16px "${family}"`)
+    ]);
+    await Promise.allSettled(loads);
+  }
+}
+
+function ensureUserGoogleFontStylesheet() {
+  let link = document.getElementById(GOOGLE_FONT_STYLESHEET_ID);
+  if (!link) {
+    link = document.createElement('link');
+    link.id = GOOGLE_FONT_STYLESHEET_ID;
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }
+  return link;
+}
+
+function removeUserGoogleFontStylesheet() {
+  const link = document.getElementById(GOOGLE_FONT_STYLESHEET_ID);
+  if (link) {
+    link.remove();
+  }
+}
+
+function waitForStylesheetLoad(link, href) {
+  return new Promise((resolve, reject) => {
+    if (link.href === href && link.sheet) {
+      resolve();
+      return;
+    }
+
+    link.onload = () => {
+      link.onload = null;
+      link.onerror = null;
+      resolve();
+    };
+    link.onerror = () => {
+      link.onload = null;
+      link.onerror = null;
+      reject(new Error('Unable to load the requested Google Font stylesheet.'));
+    };
+    link.href = href;
+  });
+}
+
+function getSelectedFontStack() {
+  if (!activeGoogleFont) return DEFAULT_FONT_STACK;
+  if (!activeGoogleFont.primaryFamily) return DEFAULT_FONT_STACK;
+  return `"${activeGoogleFont.primaryFamily}", ${DEFAULT_FONT_STACK}`;
+}
+
+function getKhmerFontStack() {
+  if (!activeGoogleFont) return DEFAULT_KHMER_FONT_STACK;
+  return `"${activeGoogleFont.khmerFamily}", ${DEFAULT_KHMER_FONT_STACK}`;
+}
+
+function applyFontStack() {
+  document.documentElement.style.setProperty('--editor-font-stack', getSelectedFontStack());
+  document.documentElement.style.setProperty('--preview-font-stack', getSelectedFontStack());
+  document.documentElement.style.setProperty('--export-font-stack', getSelectedFontStack());
+  document.documentElement.style.setProperty('--khmer-font-stack', getKhmerFontStack());
+  syncEditorFont();
+}
+
+function syncEditorFont() {
+  if (!isEditorReady()) return;
+  const editable = $(editorRoot).next('.note-editor').find('.note-editable').get(0);
+  if (editable) {
+    editable.style.fontFamily = getSelectedFontStack();
+  }
+}
+
+function escapeHtml(value) {
+  const div = document.createElement('div');
+  div.textContent = value;
+  return div.innerHTML;
 }
 
 function sleep(ms) {

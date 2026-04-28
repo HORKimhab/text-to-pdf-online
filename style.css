@@ -1,24 +1,28 @@
 /* ============================================================
    TEXT TO PDF — style.css
-   Aesthetic: editorial / ink-press — dark navy + warm cream
+   Aesthetic: editorial / paper-light — ivory + slate
    ============================================================ */
 
 :root {
-  --navy:       #0f1b2d;
-  --navy-mid:   #162336;
-  --navy-light: #1e3050;
-  --cream:      #f5f0e8;
-  --cream-dim:  #ece5d6;
+  --navy:       #f6f1e7;
+  --navy-mid:   #fffdfa;
+  --navy-light: #eef3f8;
+  --cream:      #182434;
+  --cream-dim:  #324255;
   --gold:       #c9a84c;
   --gold-light: #e0c070;
   --teal:       #2ab5a0;
   --teal-dark:  #1d9080;
   --red-soft:   #c0443a;
-  --text-main:  #e8e0d0;
-  --text-muted: #8fa0b5;
-  --border:     rgba(201,168,76,0.18);
+  --text-main:  #182434;
+  --text-muted: #667789;
+  --border:     rgba(24,36,52,0.12);
   --radius:     10px;
-  --shadow:     0 8px 40px rgba(0,0,0,0.45);
+  --shadow:     0 18px 50px rgba(24,36,52,0.08);
+  --editor-font-stack: 'Ubuntu', 'Battambang', sans-serif;
+  --preview-font-stack: 'Ubuntu', 'Battambang', sans-serif;
+  --export-font-stack: 'Ubuntu', 'Battambang', sans-serif;
+  --khmer-font-stack: 'Battambang', 'Ubuntu', sans-serif;
 }
 
 /* Base */
@@ -30,8 +34,8 @@ body {
   margin: 0;
   background-color: var(--navy);
   background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(42,181,160,0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(42,181,160,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(201,168,76,0.1) 0%, transparent 70%);
   color: var(--text-main);
   font-family: 'Ubuntu', 'Battambang', sans-serif;
   min-height: 100vh;
@@ -43,7 +47,7 @@ body {
 .site-header {
   border-bottom: 1px solid var(--border);
   padding: 18px 0 16px;
-  background: rgba(15,27,45,0.85);
+  background: rgba(255,253,250,0.88);
   backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
@@ -119,6 +123,17 @@ body {
   font-weight: 500;
 }
 
+.hero-font-input {
+  max-width: 860px;
+  margin: 18px auto 0;
+  text-align: left;
+}
+
+.hero-font-label {
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
 /* ---- CARD ---- */
 .main-card {
   background: var(--navy-mid);
@@ -156,10 +171,10 @@ body {
 .textarea-wrap { position: relative; }
 
 .text-editor {
-  border: 1px solid rgba(201,168,76,0.22);
+  border: 1px solid rgba(24,36,52,0.12);
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--navy);
+  background: #fff;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -175,40 +190,40 @@ body {
 }
 
 .note-toolbar {
-  background: rgba(255,255,255,0.03) !important;
-  border-bottom: 1px solid rgba(201,168,76,0.15) !important;
+  background: #f7f2e8 !important;
+  border-bottom: 1px solid rgba(24,36,52,0.08) !important;
   padding: 12px 14px !important;
 }
 
 .note-editor .note-toolbar,
 .note-editor .note-statusbar {
-  border-color: rgba(201,168,76,0.15) !important;
+  border-color: rgba(24,36,52,0.08) !important;
 }
 
 .note-editing-area,
 .note-editable {
-  background: rgba(15,27,45,0.9) !important;
+  background: #fff !important;
 }
 
 .note-editor.note-frame .note-editing-area .note-editable {
-  color: var(--cream);
-  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  color: var(--text-main);
+  font-family: var(--editor-font-stack);
   font-size: 1rem;
   line-height: 1.75;
   padding: 18px 20px;
 }
 
 .note-placeholder {
-  color: rgba(143,160,181,0.5) !important;
+  color: rgba(102,119,137,0.6) !important;
 }
 
 .note-btn,
 .note-btn-group .dropdown-toggle,
 .note-dropdown-menu,
 .note-modal-content {
-  background: var(--navy-mid) !important;
-  color: var(--cream) !important;
-  border-color: rgba(201,168,76,0.18) !important;
+  background: #fffdfa !important;
+  color: var(--text-main) !important;
+  border-color: rgba(24,36,52,0.12) !important;
 }
 
 .note-btn:hover,
@@ -284,10 +299,10 @@ body {
 }
 
 .setting-input {
-  background: var(--navy);
-  border: 1px solid rgba(201,168,76,0.18);
+  background: #fff;
+  border: 1px solid rgba(24,36,52,0.14);
   border-radius: 6px;
-  color: var(--cream);
+  color: var(--text-main);
   font-size: 0.9rem;
   padding: 7px 10px;
   width: 100%;
@@ -298,6 +313,13 @@ body {
   outline: none;
   border-color: var(--teal);
   box-shadow: 0 0 0 2px rgba(42,181,160,0.1);
+}
+
+.setting-help {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  margin-top: 6px;
 }
 
 /* ---- ACTION ROW ---- */
@@ -388,7 +410,7 @@ body {
 .status-msg.info {
   background: rgba(201,168,76,0.08);
   border: 1px solid rgba(201,168,76,0.22);
-  color: var(--gold-light);
+  color: #8a6b21;
 }
 
 /* ---- PREVIEW ---- */
@@ -410,7 +432,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255,255,255,0.04);
+  background: #f8f4ec;
   border-bottom: 1px solid var(--border);
   font-size: 0.8rem;
   letter-spacing: 0.1em;
@@ -423,13 +445,13 @@ body {
   background: rgba(201,168,76,0.15);
   border: 1px solid rgba(201,168,76,0.3);
   border-radius: 20px;
-  color: var(--gold-light);
+  color: #8a6b21;
   font-size: 0.72rem;
   padding: 2px 10px;
 }
 
 .preview-content {
-  background: var(--navy);
+  background: #f3eee5;
   padding: 28px 24px;
   display: flex;
   flex-wrap: wrap;
@@ -445,7 +467,7 @@ body {
   border-radius: 3px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.6);
   color: #111;
-  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  font-family: var(--preview-font-stack);
   font-size: 11px;
   line-height: 1.75;
   overflow: hidden;
@@ -478,12 +500,12 @@ body {
   padding: 24px 26px;
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,253,250,0.82);
 }
 
 .seo-title {
   margin: 0 0 10px;
-  color: var(--cream);
+  color: var(--text-main);
   font-family: 'Ubuntu', sans-serif;
   font-size: clamp(1.3rem, 3vw, 1.8rem);
   font-weight: 400;
@@ -521,7 +543,7 @@ body {
   background: #fff;
   color: #111;
   padding: 28px 34px 22px;
-  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  font-family: var(--export-font-stack);
 }
 
 .export-sheet-content {
@@ -529,7 +551,7 @@ body {
   padding: 0;
   background: #fff;
   color: #111;
-  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  font-family: var(--export-font-stack);
 }
 
 .export-sheet-content.summernote-content p,
@@ -549,7 +571,7 @@ body {
 }
 
 .export-sheet-content.summernote-content {
-  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  font-family: var(--export-font-stack);
   color: #111 !important;
 }
 
@@ -563,7 +585,7 @@ body {
 }
 
 .export-sheet-content.summernote-content .khmer-min-font {
-  font-family: 'Battambang', 'Ubuntu', sans-serif;
+  font-family: var(--khmer-font-stack);
   line-height: inherit;
 }
 
@@ -581,15 +603,15 @@ body {
 
 .export-sheet-content.summernote-content h1,
 .export-sheet-content.summernote-content h2 {
-  font-family: 'Ubuntu', 'Battambang', sans-serif;
+  font-family: var(--export-font-stack);
 }
 
 /* ---- SPINNER ---- */
 .spinner-ring {
   display: inline-block;
   width: 14px; height: 14px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
+  border: 2px solid rgba(24,36,52,0.18);
+  border-top-color: var(--text-main);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   vertical-align: middle;
