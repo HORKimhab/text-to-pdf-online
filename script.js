@@ -432,7 +432,11 @@ async function applySelectedGoogleFont() {
   }
 
   googleFontInput.setCustomValidity('');
-  await loadUserGoogleFont(config);
+  try {
+    await loadUserGoogleFont(config);
+  } catch (err) {
+    throw new Error(describeGoogleFontLoadError(err));
+  }
   activeGoogleFont = config;
   applyFontStack();
   showStatus(`Google Font applied: ${escapeHtml(config.label)}`, 'success');
@@ -532,6 +536,20 @@ function waitForStylesheetLoad(link, href) {
     };
     link.href = href;
   });
+}
+
+function describeGoogleFontLoadError(err) {
+  const baseMessage = err && err.message ? err.message : 'Unable to load the requested Google Font stylesheet.';
+
+  if (window.location.protocol === 'file:') {
+    return `${baseMessage} This page is running from a local file. Open it through a local server (for example: "python3 -m http.server") and check that your internet connection allows requests to fonts.googleapis.com and fonts.gstatic.com.`;
+  }
+
+  if (navigator.onLine === false) {
+    return `${baseMessage} Your browser appears to be offline.`;
+  }
+
+  return `${baseMessage} Check that the URL is public and that your browser/network is not blocking fonts.googleapis.com or fonts.gstatic.com.`;
 }
 
 function getSelectedFontStack() {
